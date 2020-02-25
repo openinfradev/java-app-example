@@ -1,0 +1,34 @@
+<configuration>
+
+  <property name="charset" value="UTF-8"/>
+  <property name="pattern" value="%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n"/>
+
+  <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+    <encoder>
+      <charset>${charset}</charset>
+      <pattern>${pattern}</pattern>
+    </encoder>
+  </appender>
+
+  <!-- show hibernate sql with debug -->
+  <logger name="org.hibernate.SQL" level="info"/>
+  <!-- show bound hibernate parameters with trace -->
+  <logger name="org.hibernate.type" level="debug"/>
+
+  <logger name="org.springframework.web" level="debug"/>
+
+  <logger name="org.apache.http" level="debug"/>
+
+  <logger name="org.springframework.data.rest" level="debug"/>
+
+  <logger name="org.springframework.security" level="debug"/>
+
+  <logger name="org.apache.ignite" level="debug"/>
+
+  <logger name="app.sample" level="debug"/>
+
+  <root level="debug">
+    <appender-ref ref="STDOUT"/>
+  </root>
+
+</configuration>

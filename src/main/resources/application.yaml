@@ -1,0 +1,72 @@
+spring:
+  profiles:
+    active: dev,log
+  jmx:
+    enabled: false
+  aop:
+    proxy-target-class: true
+
+# LOG 설정
+logging:
+  config: classpath:logback.xml
+
+# WAS 설정
+server:
+  port: 8080
+
+---
+#-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+# Dev Profile
+#-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+spring:
+  profiles: dev
+  devtools:
+    livereload:
+      enabled: true
+  # DB
+  datasource:
+    platform: mysql
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://${DB_HOST:exntu.kr}:${DB_PORT:33306}/sample?autoReconnect=true&useUnicode=true&characterEncoding=UTF-8&useSSL=false
+    username: test
+    password: test00
+    max-active: 10
+    max-idle: 10
+    min-idle: 10
+    initial-size: 10
+    test-on-borrow: false
+    test-on-return: false
+    test-while-idle: true
+    max-wait: 1000
+    validation-query: SELECT 1
+  jpa:
+    database: mysql
+    show-sql: false
+    hibernate:
+#      ddl-auto: create
+#      naming_strategy: org.hibernate.cfg.EJB3NamingStrategy
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+        format_sql: false
+        hbm2ddl:
+          import_files: /sql/init.sql
+  # Redis
+  redis:
+    host: ${REDIS_HOST:exntu.kr}
+    port: ${REDIS_PORT:26379}
+    password: ${REDIS_PASS:}
+
+---
+#-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+# Log Profile
+#-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+spring:
+  profiles: log
+
+# LOG 설정
+logging:
+  config: classpath:logback-console.xml
+---
