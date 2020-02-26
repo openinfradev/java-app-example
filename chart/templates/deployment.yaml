@@ -1,18 +1,21 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ .Values.app.name }}-{{ .Values.app.tag }}
+  name: {{ .Values.app.name }}
   labels:
-    app: {{ .Values.app.name }}-{{ .Values.app.tag }}
+    app: {{ .Values.app.name }}
+    tag: "{{ .Values.app.tag }}"
 spec:
   replicas: {{ .Values.deployment.replicaCount }}
   selector:
     matchLabels:
-      app: {{ .Values.app.name }}-{{ .Values.app.tag }}
+      app: {{ .Values.app.name }}
+      tag: "{{ .Values.app.tag }}"
   template:
     metadata:
       labels:
-        app: {{ .Values.app.name }}-{{ .Values.app.tag }}
+        app: {{ .Values.app.name }}
+        tag: "{{ .Values.app.tag }}"
     spec:
       {{- with .Values.deployment.hostAliases }}
       hostAliases:
@@ -27,7 +30,7 @@ spec:
 {{ toYaml . | indent 8 }}
       {{- end }}
       containers:
-      - name: {{ .Values.app.name }}-{{ .Values.app.tag }}
+      - name: {{ .Values.app.name }}
         image: {{ .Values.deployment.image }}
         imagePullPolicy: Always
         {{- with .Values.deployment.resources }}
@@ -70,3 +73,4 @@ spec:
           timeoutSeconds: {{ .Values.deployment.readinessProbe.timeoutSeconds }}
           {{- end }}
         {{- end }}
+
