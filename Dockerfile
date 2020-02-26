@@ -9,12 +9,12 @@ RUN mvn package
 FROM openjdk:8 as app
 
 WORKDIR /app
-COPY --from=maven /build/target/java-sample-1.0.0-RELEASE.war .
+COPY --from=maven /build/target/java-app-example-1.0.0-RELEASE.war .
 COPY --from=maven /build/src/main/resources/application.yaml ./application.yaml
 
 EXPOSE 8080
 
 # server run
 ENTRYPOINT ["java"]
-CMD ["-jar", "java-sample-1.0.0-RELEASE.war"]
+CMD ["-jar", "java-app-example-1.0.0-RELEASE.war"]
 
