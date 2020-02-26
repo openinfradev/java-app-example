@@ -1,0 +1,30 @@
+namespace: jenkins
+
+app:
+  name: java-app-sample
+  tag: "1.0"
+
+deployment:
+  image: java-app-sample:1.0
+  replicaCount: 1
+
+  env:
+    - name: DB_HOST
+      value: "ex-host"
+    - name: DB_PORT
+      value: "3306"
+    - name: REDIS_HOST
+      value: "ex-host"
+    - name: REDIS_PORT
+      value: "6379"
+
+service:
+  type: NodePort
+  ports:
+    - name: http
+      port: 8080
+      targetPort: 8080
+
+ingress:
+  enabled: false
+
