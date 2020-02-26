@@ -1,0 +1,72 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.app.name }}-{{ .Values.app.tag }}
+  labels:
+    app: {{ .Values.app.name }}-{{ .Values.app.tag }}
+spec:
+  replicas: {{ .Values.deployment.replicaCount }}
+  selector:
+    matchLabels:
+      app: {{ .Values.app.name }}-{{ .Values.app.tag }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.app.name }}-{{ .Values.app.tag }}
+    spec:
+      {{- with .Values.deployment.hostAliases }}
+      hostAliases:
+{{ toYaml . | indent 8 }}
+      {{- end }}
+      {{- with .Values.deployment.affinity }}
+      affinity:
+{{ toYaml . | indent 8 }}
+      {{- end }}
+      {{- with .Values.deployment.nodeSelector }}
+      nodeSelector:
+{{ toYaml . | indent 8 }}
+      {{- end }}
+      containers:
+      - name: {{ .Values.app.name }}-{{ .Values.app.tag }}
+        image: {{ .Values.deployment.image }}
+        imagePullPolicy: Always
+        {{- with .Values.deployment.resources }}
+        resources:
+{{ toYaml . | indent 10 }}
+        {{- end }}
+        {{- with .Values.deployment.env }}
+        env:
+{{ toYaml . | indent 10 }}
+        {{- end }}
+        {{- with .Values.deployment.command }}
+        command:
+{{ toYaml . | indent 10 }}
+        {{- end}}
+        {{- with .Values.deployment.args }}
+        args:
+{{ toYaml . | indent 10 }}
+        {{- end}}
+        {{- if .Values.deployment.livenessProbe.enabled }}
+        livenessProbe:
+          httpGet:
+            path: {{ .Values.deployment.livenessProbe.path }}
+            port: {{ .Values.deployment.livenessProbe.port }}
+          {{- if .Values.deployment.livenessProbe.initialDelaySeconds }}
+          initialDelaySeconds: {{ .Values.deployment.livenessProbe.initialDelaySeconds }}
+          {{- end }}
+          {{- if .Values.deployment.livenessProbe.timeoutSeconds }}
+          timeoutSeconds: {{ .Values.deployment.livenessProbe.timeoutSeconds }}
+          {{- end }}
+        {{- end }}
+        {{- if .Values.deployment.readinessProbe.enabled }}
+        readinessProbe:
+          httpGet:
+            path: {{ .Values.deployment.readinessProbe.path }}
+            port: {{ .Values.deployment.readinessProbe.port }}
+          {{- if .Values.deployment.readinessProbe.initialDelaySeconds }}
+          initialDelaySeconds: {{ .Values.deployment.readinessProbe.initialDelaySeconds }}
+          {{- end }}
+          {{- if .Values.deployment.readinessProbe.timeoutSeconds }}
+          timeoutSeconds: {{ .Values.deployment.readinessProbe.timeoutSeconds }}
+          {{- end }}
+        {{- end }}

@@ -1,0 +1,88 @@
+namespace: default
+
+app:
+  name: java-sample
+  tag: latest
+
+deployment:
+  image: java-sample:latest
+  replicaCount: 1
+
+  resources:
+    limits:
+      cpu: 100m
+      memory: 128Mi
+    requests:
+      cpu: 100m
+      memory: 128Mi
+
+  env:
+    - name: DB_HOST
+      value: "exntu.kr"
+    - name: DB_PORT
+      value: 33306
+    - name: REDIS_HOST
+      value: "exntu.kr"
+    - name: REDIS_PORT
+      value: 26379
+
+  command: []
+
+  args: []
+#    - $(MESSAGE)
+
+  hostAliases: []
+#    - ip: "192.168.1.10"
+#      hostnames:
+#      - "sample.com"
+#      - "www.sample.com"
+
+  nodeSelector: {}
+  affinity: {}
+#    nodeAffinity:
+#      requiredDuringSchedulingIgnoredDuringExecution:
+#        nodeSelectorTerms:
+#        - matchExpressions:
+#          - key: kubernetes.io/hostname
+#            operator: In
+#            values:
+#            - master3
+
+  livenessProbe:
+    enabled: true
+    path: /health
+    port: 8080
+    initialDelaySeconds:
+    timeoutSeconds:
+
+  readinessProbe:
+    enabled: true
+    path: /health
+    port: 8080
+    initialDelaySeconds:
+    timeoutSeconds:
+
+hpa:
+  enabled: true
+  minReplicas: 1
+  maxReplicas: 5
+  targetCPUUtilizationPercentage: 70
+
+service:
+  type: ClusterIP
+  ports:
+    - name: http
+      port: 8080
+      targetPort: 8080
+      nodePort:
+
+ingress:
+  enabled: true
+  annotations: {}
+  host: app.example.java
+  paths:
+    - path: /
+      port: 8080
+
+
+
