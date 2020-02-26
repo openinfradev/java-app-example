@@ -1,33 +1,20 @@
-FROM centos:7 AS build
+FROM maven:3.5-jdk-8 as maven
 
-# Install JAVA
-RUN yum install -y \
-       java-1.8.0-openjdk \
-       java-1.8.0-openjdk-devel
-ENV JAVA_HOME /etc/alternatives/jre
+WORKDIR /build
+COPY ./pom.xml ./pom.xml
+RUN mvn dependency:go-offline -B
+COPY src/ /build/src/
+RUN mvn package
 
-# Install Maven
-RUN yum install -y git maven
-
-WORKDIR /app/java-sample
-
-# add project
-ADD ./ /app/java-sample/
-
-# server mvn install
-WORKDIR /app/java-sample
-RUN mvn clean package -Dmaven.test.skip=true -U
-
-###
-
-FROM openjdk:8 AS app
+FROM openjdk:8 as app
 
 WORKDIR /app
-COPY --from=build /app/java-sample/target/java-sample-1.0.0-RELEASE.war .
-COPY --from=build /app/java-sample/src/main/resources/application.yaml ./application.yaml
+COPY --from=maven /build/target/java-sample-1.0.0-RELEASE.war .
+COPY --from=maven /build/src/main/resources/application.yaml ./application.yaml
 
 EXPOSE 8080
 
 # server run
 ENTRYPOINT ["java"]
 CMD ["-jar", "java-sample-1.0.0-RELEASE.war"]
+
