@@ -6,7 +6,7 @@ app:
 
 deployment:
   image: taco-registry:5000/admin/java-app-example:1.0
-  replicaCount: 1
+  replicaCount: 3
 
   env:
     - name: DB_HOST
