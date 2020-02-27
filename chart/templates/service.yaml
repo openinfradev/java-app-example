@@ -19,4 +19,5 @@ spec:
       {{- end }}
     {{- end}}
   selector:
-    app: {{ .Values.app.name }}-{{ .Values.app.tag }}
+    app: {{ .Values.app.name }}
+    tag: "{{ .Values.app.tag }}"
