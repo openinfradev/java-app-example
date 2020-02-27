@@ -8,13 +8,13 @@ deployment:
   image: java-sample:latest
   replicaCount: 1
 
-  resources: 
-    limits:
-      cpu: 1000m
-      memory: 2048Mi
-    requests:
-      cpu: 1000m
-      memory: 2048Mi
+  # resources: 
+  #   limits:
+  #     cpu: 1000m
+  #     memory: 2048Mi
+  #   requests:
+  #     cpu: 1000m
+  #     memory: 2048Mi
 
   env:
     - name: DB_HOST

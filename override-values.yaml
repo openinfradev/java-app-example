@@ -8,14 +8,6 @@ deployment:
   image: taco-registry:5000/admin/java-app-example:1.0
   replicaCount: 1
 
-  resources: 
-    limits:
-      cpu: 1000m
-      memory: 2048Mi
-    requests:
-      cpu: 1000m
-      memory: 2048Mi
-
   env:
     - name: DB_HOST
       value: "ex-host"
