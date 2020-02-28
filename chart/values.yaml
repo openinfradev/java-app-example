@@ -3,9 +3,10 @@ namespace: default
 app:
   name: java-sample
   tag: latest
+  registry: taco-registry:5000
 
 deployment:
-  image: java-sample:latest
+  # image: java-sample:latest
   replicaCount: 1
 
   # resources: 
@@ -64,6 +65,7 @@ hpa:
   targetCPUUtilizationPercentage: 70
 
 service:
+  enabled: true
   type: NodePort
   ports:
     - name: http

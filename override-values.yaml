@@ -2,10 +2,10 @@ namespace: jenkins
 
 app:
   name: java-app-example
-  tag: "1.0"
+  tag: v1
+  registry: taco-registry:5000
 
 deployment:
-  image: taco-registry:5000/admin/java-app-example:1.0
   replicaCount: 3
 
   resources: 
@@ -41,6 +41,7 @@ deployment:
     timeoutSeconds:
 
 service:
+  enabled: true
   type: NodePort
   ports:
     - name: http

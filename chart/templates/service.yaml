@@ -1,10 +1,11 @@
+{{ if .Values.service.enabled }}
+---
 apiVersion: v1
 kind: Service
 metadata:
   name: {{ .Values.app.name }}
   labels:
     app: {{ .Values.app.name }}
-    tag: "{{ .Values.app.tag }}"
 spec:
   type: {{ .Values.service.type }}
   ports:
@@ -20,4 +21,4 @@ spec:
     {{- end}}
   selector:
     app: {{ .Values.app.name }}
-    tag: "{{ .Values.app.tag }}"
+{{ end }}
