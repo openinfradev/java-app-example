@@ -2,7 +2,7 @@
 apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
-  name: {{ .Values.app.name }}
+  name: {{ .Values.app.name }}-{{ .Values.app.tag }}
   {{- with .Values.ingress.annotations }}
   annotations:
 {{ toYaml . | indent 4 }}
@@ -16,7 +16,8 @@ spec:
       {{- range .Values.ingress.paths }}
       - path: {{ .path }}
         backend:
-          serviceName: {{ $root.Values.app.name }}
+          serviceName: {{ $root.Values.app.name }}-{{ $root.Values.app.tag }}
           servicePort: {{ .port }}
       {{- end }}
 {{ end }}
+
