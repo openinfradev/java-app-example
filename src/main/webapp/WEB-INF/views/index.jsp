@@ -17,7 +17,7 @@
     <div class="row">
         <div class="col-lg-12">
             <div class="page-header">
-                <h1><font color="red">This Container IP is ${myIp}</font></h1>
+                <h1><font color="blue">This Container IP is ${myIp}</font></h1>
             </div>
         </div>
     </div>
