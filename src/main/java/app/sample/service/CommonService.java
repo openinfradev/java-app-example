@@ -66,22 +66,25 @@ public class CommonService {
             }
             if(!exists) {
                 containers.add(container);
-
-                JSONObject json = new JSONObject();
-                JSONArray arr = new JSONArray();
-                containers.forEach(item -> {
-                    JSONObject o = new JSONObject();
-                    o.put("host", item.getHost());
-                    o.put("port", item.getPort());
-                    arr.add(o);
-                });
-                json.put("containers", arr);
-
+                JSONObject json = this.mappingToJson(containers);
                 valueOperations.set("containerList", json.toJSONString());
             }
         } catch(Exception e) {
             e.printStackTrace();
         }
 
+    }
+
+    public JSONObject mappingToJson(List<Container> containers) {
+        JSONObject json = new JSONObject();
+        JSONArray arr = new JSONArray();
+        containers.forEach(item -> {
+            JSONObject o = new JSONObject();
+            o.put("host", item.getHost());
+            o.put("port", item.getPort());
+            arr.add(o);
+        });
+        json.put("containers", arr);
+        return json;
     }
 }

@@ -59,6 +59,8 @@ spring:
     port: ${REDIS_PORT:26379}
     password: ${REDIS_PASS:}
 
+  style:
+    color: ${STYLE:red}
 ---
 #-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 # Log Profile
