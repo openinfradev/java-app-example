@@ -2,7 +2,7 @@ namespace: jenkins
 
 app:
   name: java-app-example
-  tag: v2
+  tag: v1
   registry: taco-registry:5000/admin
 
 deployment:
