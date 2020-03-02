@@ -3,7 +3,7 @@ namespace: jenkins
 app:
   name: java-app-example
   tag: v1
-  registry: taco-registry:5000
+  registry: taco-registry:5000/admin
 
 deployment:
   replicaCount: 3
