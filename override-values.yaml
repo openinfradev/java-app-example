@@ -56,5 +56,10 @@ hpa:
   targetCPUUtilizationPercentage: 70
 
 ingress:
-  enabled: false
+  enabled: true
+  annotations: {}
+  host: java.app.example
+  paths:
+    - path: /
+      port: 8080
 
