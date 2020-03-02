@@ -64,3 +64,4 @@ ingress:
   paths:
     - path: /
       port: 8080
+
