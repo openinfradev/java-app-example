@@ -2,11 +2,11 @@ namespace: jenkins
 
 app:
   name: java-app-example
-  tag: v1
+  tag: v2
   registry: taco-registry:5000/admin
 
 deployment:
-  replicaCount: 3
+  replicaCount: 1
 
   resources: 
     limits:
