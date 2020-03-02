@@ -42,7 +42,7 @@ deployment:
 
 service:
   enabled: true
-  type: NodePort
+  type: ClusterIP
   ports:
     - name: http
       port: 8080
