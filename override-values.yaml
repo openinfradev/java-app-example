@@ -49,7 +49,7 @@ service:
     - name: http
       port: 8080
       targetPort: 8080
-#      nodePort: 31111
+#      nodePort: 31112
 
 hpa:
   enabled: true
