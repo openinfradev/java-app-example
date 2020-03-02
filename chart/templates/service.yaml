@@ -23,4 +23,3 @@ spec:
   selector:
     app: {{ .Values.app.name }}
 {{ end }}
-
