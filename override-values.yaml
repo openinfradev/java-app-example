@@ -44,12 +44,12 @@ deployment:
 
 service:
   enabled: true
-  type: ClusterIP
+  type: NodePort
   ports:
     - name: http
       port: 8080
       targetPort: 8080
-#      nodePort: 31111
+      nodePort: 31111
 
 hpa:
   enabled: true
@@ -58,7 +58,7 @@ hpa:
   targetCPUUtilizationPercentage: 70
 
 ingress:
-  enabled: true
+  enabled: false
   annotations: {}
   host: java.app.example
   paths:
