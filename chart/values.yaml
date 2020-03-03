@@ -26,6 +26,8 @@ deployment:
       value: "exntu.kr"
     - name: REDIS_PORT
       value: "26379"
+    - name: STYLE
+      value: "red"
 
   hostAliases: []
 #    - ip: "192.168.1.10"

@@ -25,6 +25,8 @@ deployment:
       value: "ex-host"
     - name: REDIS_PORT
       value: "6379"
+    - name: STYLE
+      value: "red"
 
   livenessProbe:
     enabled: true
